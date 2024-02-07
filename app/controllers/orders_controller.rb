@@ -1,8 +1,13 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
   before_action :set_public_key, only: [:index, :create]
   def index
-    @order_shipping_address = OrderShippingAddress.new
+    if @item.order == nil
+      @order_shipping_address = OrderShippingAddress.new
+    else
+      redirect_to root_path
+    end
   end
 
   def create
