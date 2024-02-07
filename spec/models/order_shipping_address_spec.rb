@@ -73,6 +73,12 @@ RSpec.describe OrderShippingAddress, type: :model do
         @order_shipping_address.valid?
         expect(@order_shipping_address.errors.full_messages).to include("Phone number 10桁または11桁の数字で入力してください")
       end
+
+      it 'tokenが空だと購入できない' do
+        @order_shipping_address.token = ""
+        @order_shipping_address.valid?
+        expect(@order_shipping_address.errors.full_messages).to include("Token can't be blank")
+      end
     end
   end
 end
